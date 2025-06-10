@@ -692,7 +692,8 @@ export default function OEEDashboard() {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [contentScale, setContentScale] = useState(1);
   const [view, setView] = useState<'dashboard' | 'machineList'>('dashboard');
-  const [selectedPlantOee, setSelectedPlantOee] = useState<string>('all');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setSelectedPlantOee] = useState<string>('all');
   // Recommendations data is used in the UI
   const [recommendations] = useState([
     { 
@@ -720,9 +721,10 @@ export default function OEEDashboard() {
       icon: <CheckCircle className="text-green-500" size={18} />
     },
   ]);
+
   const [selectedKpi, setSelectedKpi] = useState('oee');
   // isClient is used for SSR
-  const [isClient, setIsClient] = useState(false);
+  const [isClient, _setIsClient] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
 
   // Update time every second
@@ -764,7 +766,7 @@ export default function OEEDashboard() {
         setContentScale(1);
       }
     }
-  }, [isClient, isFullScreen]);
+  }, [isClient]);
 
   const roleView = getRoleBasedView(selectedRole);
 
