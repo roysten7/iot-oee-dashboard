@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, MouseEvent, useCallback, useEffect } from 'react';
-import { AreaChart, Area, BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { AreaChart, Area, BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { CheckCircle, TrendingUp, TrendingDown, ChevronDown, ChevronRight, Wrench, Maximize2, Minimize2, User, AlertTriangle, Clock, Zap } from 'lucide-react';
 import Link from 'next/link';
 
@@ -691,8 +691,7 @@ export default function OEEDashboard() {
   const [selectedRole, setSelectedRole] = useState<Role>('all');
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [view, setView] = useState<'dashboard' | 'machineList'>('dashboard');
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // Recommendations data is used in the UI
   const [recommendations] = useState([
     { id: 1, text: 'Optimize changeover process for Line A', priority: 'high', completed: false },
     { id: 2, text: 'Schedule maintenance for Injection Molder B1', priority: 'medium', completed: false },
@@ -700,11 +699,8 @@ export default function OEEDashboard() {
   ]);
   const [selectedKpi, setSelectedKpi] = useState('oee');
   // isClient is used for SSR
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isClient, setIsClient] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
-  // isClient is used for SSR
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
   // Update time every second
   useEffect(() => {
@@ -1303,21 +1299,13 @@ export default function OEEDashboard() {
                   dataKey="name" 
                   type="category" 
                   width={80}
-                  tick={{ fontSize: 12 }}
                 />
-                <Tooltip 
-                  formatter={(value) => [`${value}%`, 'Efficiency']}
-                />
-                <Bar dataKey="efficiency" fill="#4F46E5" radius={[0, 4, 4, 0]}>
-                  {operatorEfficiencyData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={`rgba(99, 102, 241, ${0.6 + (index * 0.1)})`} />
-                  ))}
-                </Bar>
+                <Tooltip formatter={(value) => [`${value}%`, 'Efficiency']} />
+                <Bar dataKey="efficiency" fill="#4F46E5" radius={[0, 4, 4, 0]} fillOpacity={0.8} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
-      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
         {/* Recommendations */}

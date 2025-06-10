@@ -131,7 +131,8 @@ const AllMachinesPage = () => {
     machine.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
     machine.line.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  // Using filteredMachines in the UI below
+  // Use filteredMachines for rendering the machine list
+  const displayMachines = searchTerm ? filteredMachines : machinesData;
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
@@ -218,7 +219,13 @@ const AllMachinesPage = () => {
 
       {/* Machine Details */}
       <div className="space-y-6">
-        {Object.entries(groupedMachines).map(([line, lineMachines]) => (
+        {Object.entries(
+          displayMachines.reduce((acc, machine) => {
+            if (!acc[machine.line]) acc[machine.line] = [];
+            acc[machine.line].push(machine);
+            return acc;
+          }, {} as Record<string, typeof machinesData>)
+        ).map(([line, lineMachines]) => (
           <div key={line} className="bg-white rounded-xl shadow-md overflow-hidden">
             <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
               <h3 className="text-lg font-semibold text-gray-800">Line {line} - Machine Details</h3>
