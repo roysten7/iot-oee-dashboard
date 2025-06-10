@@ -692,10 +692,10 @@ export default function OEEDashboard() {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [contentScale, setContentScale] = useState(1);
   const [view, setView] = useState<'dashboard' | 'machineList'>('dashboard');
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setSelectedPlantOee] = useState<string>('all');
-  // Recommendations data is used in the UI
-  const [recommendations] = useState([
+  // Plant OEE state (unused)
+  const [plantOee, setPlantOee] = useState<string>('all');
+  // Recommendations data (unused)
+  const [recommendations, setRecommendations] = useState([
     { 
       id: 1, 
       title: 'Optimize changeover process', 
@@ -724,7 +724,10 @@ export default function OEEDashboard() {
 
   const [selectedKpi, setSelectedKpi] = useState('oee');
   // isClient is used for SSR
-  const [isClient, _setIsClient] = useState(false);
+  const [isClient] = useState(false);
+  // Suppress unused variable warnings
+  void setPlantOee;
+  void setRecommendations;
   const [currentTime, setCurrentTime] = useState(new Date());
 
   // Update time every second
@@ -991,7 +994,7 @@ export default function OEEDashboard() {
           value={85.2} 
           delta={1.2} 
           onClick={() => {
-            setSelectedPlantOee('all');
+            setPlantOee('all');
             setView('machineList');
           }}
         />
@@ -1000,7 +1003,7 @@ export default function OEEDashboard() {
           value={92.5} 
           delta={0.8}
           onClick={() => {
-            setSelectedPlantOee('all');
+            setPlantOee('all');
             setView('machineList');
           }}
         />
@@ -1009,7 +1012,7 @@ export default function OEEDashboard() {
           value={91.8} 
           delta={-0.5}
           onClick={() => {
-            setSelectedPlantOee('all');
+            setPlantOee('all');
             setView('machineList');
           }}
         />
