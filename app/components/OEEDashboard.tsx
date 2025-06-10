@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, MouseEvent, useCallback, useEffect } from 'react';
-import { AreaChart, Area, BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { AlertTriangle, Clock, Zap, CheckCircle, TrendingUp, TrendingDown, ChevronDown, ChevronRight, Wrench, Maximize2, Minimize2, User, Settings, Shield, ClipboardCheck } from 'lucide-react';
+import { AreaChart, Area, BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { CheckCircle, TrendingUp, TrendingDown, ChevronDown, ChevronRight, Wrench, Maximize2, Minimize2, User, AlertTriangle, Clock, Zap } from 'lucide-react';
 import Link from 'next/link';
 
 type Role = 'owner' | 'supervisor' | 'maintenance' | 'quality' | 'all';
@@ -222,7 +222,6 @@ const MachineStatus = ({ machines, onTotalMachinesClick }: MachineStatusProps) =
 
   const totalMachines = machines.length;
   const runningCount = statusCounts['running'] || 0;
-  const idleCount = statusCounts['idle'] || 0;
   const maintenanceCount = statusCounts['maintenance'] || 0;
 
   return (
@@ -295,10 +294,10 @@ const getRoleBasedView = (role: Role) => {
 interface QualityMetricsProps {
   isFullScreen?: boolean;
   selectedRole?: Role;
-  toggleFullScreen?: () => void;
 }
 
-const QualityMetrics = ({ isFullScreen = false, selectedRole = 'all', toggleFullScreen = () => {} }: QualityMetricsProps) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const QualityMetrics = ({ isFullScreen = false, selectedRole = 'all' }: QualityMetricsProps) => {
   return (
     <div className="bg-white p-6 rounded-lg shadow">
       <div className="flex justify-between items-center mb-4">
@@ -692,14 +691,20 @@ export default function OEEDashboard() {
   const [selectedRole, setSelectedRole] = useState<Role>('all');
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [view, setView] = useState<'dashboard' | 'machineList'>('dashboard');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [recommendations] = useState([
     { id: 1, text: 'Optimize changeover process for Line A', priority: 'high', completed: false },
     { id: 2, text: 'Schedule maintenance for Injection Molder B1', priority: 'medium', completed: false },
     { id: 3, text: 'Review quality control parameters for Line C', priority: 'low', completed: true },
   ]);
   const [selectedKpi, setSelectedKpi] = useState('oee');
+  // isClient is used for SSR
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isClient, setIsClient] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
+  // isClient is used for SSR
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
   // Update time every second
   useEffect(() => {
@@ -1000,11 +1005,7 @@ export default function OEEDashboard() {
             />
           </Link>
           <ProductionCount data={productionData} />
-          <QualityMetrics 
-            isFullScreen={isFullScreen}
-            selectedRole={selectedRole}
-            toggleFullScreen={toggleFullScreen}
-          />
+          <QualityMetrics isFullScreen={isFullScreen} selectedRole={selectedRole} />
         </>
       )}
 

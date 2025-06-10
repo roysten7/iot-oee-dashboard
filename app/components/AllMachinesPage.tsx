@@ -3,16 +3,12 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { 
-  ArrowLeft, 
-  Zap, 
-  AlertTriangle, 
-  Clock, 
-  CheckCircle, 
-  TrendingUp, 
-  TrendingDown,
+  ArrowLeft,
   BarChart2,
   Activity,
-  Settings,
+  AlertTriangle,
+  CheckCircle,
+  TrendingUp,
   AlertCircle
 } from 'lucide-react';
 
@@ -135,6 +131,7 @@ const AllMachinesPage = () => {
     machine.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
     machine.line.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  // Using filteredMachines in the UI below
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">

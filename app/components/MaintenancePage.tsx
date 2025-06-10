@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
-import { AlertTriangle, Clock, Wrench, CheckCircle, Calendar, TrendingUp, Clock as ClockIcon, AlertCircle, Zap } from 'lucide-react';
+import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell, Legend } from 'recharts';
+import { Wrench, CheckCircle, AlertTriangle, Zap } from 'lucide-react';
 import Link from 'next/link';
 
 // Mock data for maintenance history
