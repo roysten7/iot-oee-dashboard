@@ -671,7 +671,7 @@ export default function OEEDashboard() {
   const [contentScale, setContentScale] = useState(1);
   const [view, setView] = useState<'dashboard' | 'machineList'>('dashboard');
   // Plant OEE state
-  const [plantOee, setPlantOee] = useState<string>('all');
+  
   // Recommendations data (unused)
   const [_recommendationsList, setRecommendations] = useState([
     { 
@@ -704,7 +704,7 @@ export default function OEEDashboard() {
   // isClient is used for SSR
   const [isClient] = useState(false);
   // Suppress unused variable warnings
-  void setPlantOee;
+  
   void setRecommendations;
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -971,28 +971,19 @@ export default function OEEDashboard() {
           title="Plant OEE" 
           value={85.2} 
           delta={1.2} 
-          onClick={() => {
-            setPlantOee('all');
-            setView('machineList');
-          }}
+          
         />
         <OeeTile 
           title="Availability" 
           value={92.5} 
           delta={0.8}
-          onClick={() => {
-            setPlantOee('all');
-            setView('machineList');
-          }}
+          
         />
         <OeeTile 
           title="Performance" 
           value={91.8} 
           delta={-0.5}
-          onClick={() => {
-            setPlantOee('all');
-            setView('machineList');
-          }}
+          
         />
       </div>
 
