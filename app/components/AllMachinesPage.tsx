@@ -124,6 +124,7 @@ const lineStats = Object.entries(groupedMachines).map(([line, machines]) => {
 
 const AllMachinesPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedLine, setSelectedLine] = useState<string | null>(null);
 
   const filteredMachines = machinesData.filter(machine =>
     machine.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

@@ -690,12 +690,35 @@ export default function OEEDashboard() {
   const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>('day');
   const [selectedRole, setSelectedRole] = useState<Role>('all');
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [contentScale, setContentScale] = useState(1);
   const [view, setView] = useState<'dashboard' | 'machineList'>('dashboard');
+  const [selectedPlantOee, setSelectedPlantOee] = useState<string>('all');
   // Recommendations data is used in the UI
   const [recommendations] = useState([
-    { id: 1, text: 'Optimize changeover process for Line A', priority: 'high', completed: false },
-    { id: 2, text: 'Schedule maintenance for Injection Molder B1', priority: 'medium', completed: false },
-    { id: 3, text: 'Review quality control parameters for Line C', priority: 'low', completed: true },
+    { 
+      id: 1, 
+      title: 'Optimize changeover process', 
+      description: 'Optimize changeover process for Line A to reduce downtime',
+      priority: 'High', 
+      completed: false,
+      icon: <Wrench className="text-blue-500" size={18} />
+    },
+    { 
+      id: 2, 
+      title: 'Schedule maintenance', 
+      description: 'Schedule maintenance for Injection Molder B1 to prevent breakdowns',
+      priority: 'Medium', 
+      completed: false,
+      icon: <Clock className="text-yellow-500" size={18} />
+    },
+    { 
+      id: 3, 
+      title: 'Review quality parameters', 
+      description: 'Review quality control parameters for Line C to improve output quality',
+      priority: 'Low', 
+      completed: true,
+      icon: <CheckCircle className="text-green-500" size={18} />
+    },
   ]);
   const [selectedKpi, setSelectedKpi] = useState('oee');
   // isClient is used for SSR
@@ -710,6 +733,8 @@ export default function OEEDashboard() {
     return () => clearInterval(timer);
   }, []);
 
+  const [expandedRecommendation, setExpandedRecommendation] = useState<number | null>(null);
+  
   const [kpiOptions] = useState([
     { id: 'oee', label: 'OEE' },
     { id: 'availability', label: 'Availability' },
@@ -770,14 +795,14 @@ export default function OEEDashboard() {
     >
       <header className={`mb-8 ${isFullScreen ? 'px-4 py-2 bg-gray-50 rounded-lg' : ''}`}>
         <div className="flex justify-between items-center">
-          {isFullScreen && (
+          {isFullScreen ? (
             <h1 className="text-2xl font-bold text-gray-900">
               {selectedRole === 'all' ? 'OEE Dashboard' : 
                selectedRole === 'owner' ? 'Executive Overview' :
                selectedRole === 'supervisor' ? 'Production Floor' :
                selectedRole === 'maintenance' ? 'Maintenance View' : 'Quality Control'}
             </h1>
-          )}
+          ) : null}
           <div>
             <div className="flex items-center">
               <h1 className="text-3xl font-bold text-gray-900 relative flex items-center">
@@ -1306,6 +1331,8 @@ export default function OEEDashboard() {
             </ResponsiveContainer>
           </div>
         </div>
+
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
         {/* Recommendations */}
