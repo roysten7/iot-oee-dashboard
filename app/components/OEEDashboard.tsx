@@ -682,10 +682,13 @@ const MachineList = ({ machines, onBack }: MachineListProps) => {
       </div>
     </div>
   );
+}
+
+// Main dashboard component
 export default function OEEDashboard() {
   // State management
   const [selectedLine] = useState('All Lines');
-  const [selectedTimeRange] = useState<TimeRange>('day');
+  const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>('day');
   const [selectedRole, setSelectedRole] = useState<Role>('all');
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [view, setView] = useState<'dashboard' | 'machineList'>('dashboard');
@@ -694,8 +697,9 @@ export default function OEEDashboard() {
     { id: 2, text: 'Schedule maintenance for Injection Molder B1', priority: 'medium', completed: false },
     { id: 3, text: 'Review quality control parameters for Line C', priority: 'low', completed: true },
   ]);
-  const [selectedKpi] = useState('oee');
+  const [selectedKpi, setSelectedKpi] = useState('oee');
   const [isClient, setIsClient] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   // Update time every second
   useEffect(() => {
@@ -705,14 +709,6 @@ export default function OEEDashboard() {
     return () => clearInterval(timer);
   }, []);
 
-  const [timeRange, setTimeRange] = useState<TimeRange>('day');
-  const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRange>('day');
-  const [isClient, setIsClient] = useState(false);
-
-  // Set isClient to true after component mounts (for SSR)
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
   const [kpiOptions] = useState([
     { id: 'oee', label: 'OEE' },
     { id: 'availability', label: 'Availability' },
@@ -947,12 +943,9 @@ export default function OEEDashboard() {
                 <button
                   key={range}
                   type="button"
-                  onClick={() => {
-                    setTimeRange(range);
-                    setSelectedTimeRange(range);
-                  }}
+                  onClick={() => setSelectedTimeRange(range)}
                   className={`px-3 py-1 text-sm rounded-md ${
-                    timeRange === range ? 'bg-white shadow-sm' : 'text-gray-500'
+                    selectedTimeRange === range ? 'bg-white shadow-sm' : 'text-gray-500'
                   }`}
                 >
                   {range.charAt(0).toUpperCase() + range.slice(1)}
@@ -1240,9 +1233,9 @@ export default function OEEDashboard() {
               {(['day', 'week', 'month', 'quarter', 'year'] as const).map((range) => (
                 <button
                   key={range}
-                  onClick={() => setTimeRange(range)}
+                  onClick={() => setSelectedTimeRange(range)}
                   className={`px-3 py-1 text-sm rounded-md ${
-                    timeRange === range
+                    selectedTimeRange === range
                       ? 'bg-blue-600 text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
