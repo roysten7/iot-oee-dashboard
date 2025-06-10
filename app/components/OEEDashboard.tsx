@@ -682,21 +682,20 @@ const MachineList = ({ machines, onBack }: MachineListProps) => {
       </div>
     </div>
   );
-};
-
-// Main dashboard component
 export default function OEEDashboard() {
   // State management
-  const [selectedLine, setSelectedLine] = useState('All Lines');
-  const [expandedRecommendation, setExpandedRecommendation] = useState<number | null>(null);
-  const [selectedKpi, setSelectedKpi] = useState('oee');
-  type ViewType = 'dashboard' | 'machineList';
-  const [view, setView] = useState<ViewType>('dashboard');
-  const [selectedPlantOee, setSelectedPlantOee] = useState<string>('all');
-  const [isFullScreen, setIsFullScreen] = useState(false);
-  const [contentScale, setContentScale] = useState(1);
+  const [selectedLine] = useState('All Lines');
+  const [selectedTimeRange] = useState<TimeRange>('day');
   const [selectedRole, setSelectedRole] = useState<Role>('all');
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [view, setView] = useState<'dashboard' | 'machineList'>('dashboard');
+  const [recommendations] = useState([
+    { id: 1, text: 'Optimize changeover process for Line A', priority: 'high', completed: false },
+    { id: 2, text: 'Schedule maintenance for Injection Molder B1', priority: 'medium', completed: false },
+    { id: 3, text: 'Review quality control parameters for Line C', priority: 'low', completed: true },
+  ]);
+  const [selectedKpi] = useState('oee');
+  const [isClient, setIsClient] = useState(false);
 
   // Update time every second
   useEffect(() => {
@@ -1224,9 +1223,9 @@ export default function OEEDashboard() {
 
       {view === 'machineList' && (
         <MachineList 
-          machines={selectedPlantOee === 'all' 
+          machines={selectedLine === 'All Lines' 
             ? machinesData 
-            : machinesData.filter(m => m.line === selectedPlantOee)
+            : machinesData.filter(m => m.line === selectedLine)
           } 
           onBack={() => setView('dashboard')} 
         />

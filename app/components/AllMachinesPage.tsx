@@ -127,19 +127,14 @@ const lineStats = Object.entries(groupedMachines).map(([line, machines]) => {
 });
 
 const AllMachinesPage = () => {
-  const [selectedLine, setSelectedLine] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredMachines = selectedLine 
-    ? machinesData.filter(machine => machine.line === selectedLine)
-    : machinesData;
-
-  const searchedMachines = searchTerm
-    ? filteredMachines.filter(machine => 
-        machine.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        machine.id.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    : filteredMachines;
+  const filteredMachines = machinesData.filter(machine =>
+    machine.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    machine.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    machine.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    machine.line.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
