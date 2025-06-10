@@ -65,7 +65,7 @@ const downtimeReasons = [
   { name: 'Other', value: 5, color: '#6B7280' },
 ];
 
-const recommendations = [
+const _recommendations = [
   { 
     id: 1, 
     title: 'Reduce minor stops on Machine MX-04', 
@@ -693,9 +693,9 @@ export default function OEEDashboard() {
   const [contentScale, setContentScale] = useState(1);
   const [view, setView] = useState<'dashboard' | 'machineList'>('dashboard');
   // Plant OEE state (unused)
-  const [plantOee, setPlantOee] = useState<string>('all');
+  const [_plantOee, setPlantOee] = useState<string>('all');
   // Recommendations data (unused)
-  const [recommendations, setRecommendations] = useState([
+  const [_recommendationsList, setRecommendations] = useState([
     { 
       id: 1, 
       title: 'Optimize changeover process', 
@@ -1344,7 +1344,13 @@ export default function OEEDashboard() {
         <div className="bg-white p-6 rounded-lg shadow">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">Recommendations</h2>
           <div className="space-y-4">
-            {recommendations.map((rec) => (
+            {_recommendationsList.map((rec: { 
+              id: number; 
+              title: string; 
+              description: string;
+              priority: string;
+              icon: React.ReactNode 
+            }) => (
               <div key={rec.id} className="border rounded-lg overflow-hidden">
                 <button
                   className="w-full text-left p-4 flex justify-between items-center hover:bg-gray-50"
