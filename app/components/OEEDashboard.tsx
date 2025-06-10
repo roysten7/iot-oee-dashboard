@@ -65,29 +65,7 @@ const downtimeReasons = [
   { name: 'Other', value: 5, color: '#6B7280' },
 ];
 
-const _recommendations = [
-  { 
-    id: 1, 
-    title: 'Reduce minor stops on Machine MX-04', 
-    description: 'Frequent minor stops detected. Consider preventive maintenance.',
-    priority: 'High',
-    icon: <AlertTriangle className="text-yellow-500" />
-  },
-  { 
-    id: 2, 
-    title: 'Schedule preventive maintenance for Line B', 
-    description: 'Scheduled maintenance due in 3 days.',
-    priority: 'Medium',
-    icon: <Clock className="text-blue-500" />
-  },
-  { 
-    id: 3, 
-    title: 'Optimize changeover process', 
-    description: 'Average changeover time increased by 15% this week.',
-    priority: 'Medium',
-    icon: <Zap className="text-purple-500" />
-  },
-];
+
 
 const alerts = [
   { id: 1, time: '10:23 AM', machine: 'MX-04', issue: 'Overheating', status: 'Critical' },
@@ -692,8 +670,8 @@ export default function OEEDashboard() {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [contentScale, setContentScale] = useState(1);
   const [view, setView] = useState<'dashboard' | 'machineList'>('dashboard');
-  // Plant OEE state (unused)
-  const [_plantOee, setPlantOee] = useState<string>('all');
+  // Plant OEE state
+  const [plantOee, setPlantOee] = useState<string>('all');
   // Recommendations data (unused)
   const [_recommendationsList, setRecommendations] = useState([
     { 
